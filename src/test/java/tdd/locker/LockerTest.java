@@ -31,4 +31,13 @@ public class LockerTest {
         Bag fetchedBag = locker.fetch(ticket);
         assertEquals(System.identityHashCode(storedBag), System.identityHashCode(fetchedBag));
     }
+
+    @Test
+    void should_throw_err_when_fetch_bag_given_ticket_is_invalid() throws ErrorMessageException {
+        Locker locker = new Locker(2);
+        Ticket ticket = new Ticket();
+        Exception exception = assertThrows(ErrorMessageException.class, () -> locker.fetch(ticket));
+        String errorMsg = exception.getMessage();
+        assertEquals("invalid ticket", errorMsg);
+    }
 }
