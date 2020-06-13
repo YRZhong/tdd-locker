@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class LockerTest {
 
     @Test
-    void should_return_ticket_when_store_bag_given_locker_has_10_space() {
+    void should_return_ticket_when_store_bag_given_locker_has_10_space() throws ErrorMessageException {
         Bag bag = new Bag();
         Locker locker = new Locker(10);
         Ticket ticket = locker.store(bag);
