@@ -20,8 +20,11 @@ public class Locker {
         return ticket;
     }
 
-    public Bag fetch(Ticket ticket) {
+    public Bag fetch(Ticket ticket) throws ErrorMessageException {
         Bag bag = record.get(System.identityHashCode(ticket));
+        if (bag == null) {
+            throw new ErrorMessageException("invalid ticket");
+        }
         record.remove(System.identityHashCode(ticket));
         return bag;
     }
