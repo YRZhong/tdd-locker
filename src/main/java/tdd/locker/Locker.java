@@ -13,4 +13,8 @@ public class Locker {
         }
         return new Ticket();
     }
+
+    public Bag fetch(Ticket ticket) {
+        return new Bag();
+    }
 }

@@ -22,4 +22,13 @@ public class LockerTest {
         String errorMsg = exception.getMessage();
         assertEquals("no space", errorMsg);
     }
+
+    @Test
+    void should_get_correct_bag_when_fetch_bag_given_ticket_is_valid() throws ErrorMessageException {
+        Bag storedBag = new Bag();
+        Locker locker = new Locker(2);
+        Ticket ticket = locker.store(storedBag);
+        Bag fetchedBag = locker.fetch(ticket);
+        assertEquals(System.identityHashCode(storedBag), System.identityHashCode(fetchedBag));
+    }
 }
