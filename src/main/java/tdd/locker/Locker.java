@@ -1,7 +1,11 @@
 package tdd.locker;
 
 public class Locker {
-    public Ticket store(int space) {
+    private final int space;
+    public Locker(int space) {
+        this.space = space;
+    }
+    public Ticket store(Bag bag) {
         return new Ticket();
     }
 }
