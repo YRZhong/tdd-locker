@@ -1,7 +1,11 @@
 package tdd.locker;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Locker {
     private final int space;
+    private Map<Integer, Bag> record = new HashMap<>();
 
     public Locker(int space) {
         this.space = space;
@@ -11,10 +15,14 @@ public class Locker {
         if (space <= 0) {
             throw new ErrorMessageException("no space");
         }
-        return new Ticket();
+        Ticket ticket = new Ticket();
+        record.put(System.identityHashCode(ticket), bag);
+        return ticket;
     }
 
     public Bag fetch(Ticket ticket) {
-        return new Bag();
+        Bag bag = record.get(System.identityHashCode(ticket));
+        record.remove(System.identityHashCode(ticket));
+        return bag;
     }
 }
