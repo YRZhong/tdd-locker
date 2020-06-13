@@ -40,4 +40,15 @@ public class LockerTest {
         String errorMsg = exception.getMessage();
         assertEquals("invalid ticket", errorMsg);
     }
+
+    @Test
+    void should_throw_err_when_fetch_bag_given_ticket_is_used() throws ErrorMessageException {
+        Bag bag = new Bag();
+        Locker locker = new Locker(11);
+        Ticket ticket = locker.store(bag);
+        locker.fetch(ticket);
+        Exception exception = assertThrows(ErrorMessageException.class, () -> locker.fetch(ticket));
+        String errorMsg = exception.getMessage();
+        assertEquals("invalid ticket", errorMsg);
+    }
 }
