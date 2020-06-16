@@ -24,7 +24,7 @@ public class LockerTest {
     }
 
     @Test
-    void should_get_correct_bag_when_fetch_bag_given_ticket_is_valid() throws ErrorMessageException {
+    void should_get_correct_bag_when_fetch_bag_given_ticket_is_valid() {
         Bag storedBag = new Bag();
         Locker locker = new Locker(2);
         Ticket ticket = locker.store(storedBag);
@@ -41,7 +41,7 @@ public class LockerTest {
     }
 
     @Test
-    void should_throw_err_when_fetch_bag_given_ticket_is_used() throws ErrorMessageException {
+    void should_throw_err_when_fetch_bag_given_ticket_is_used() {
         Bag bag = new Bag();
         Locker locker = new Locker(11);
         Ticket ticket = locker.store(bag);
