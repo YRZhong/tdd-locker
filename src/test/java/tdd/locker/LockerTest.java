@@ -20,9 +20,7 @@ public class LockerTest {
         locker.store(new Bag());
 
         Bag bag = new Bag();
-        Exception exception = assertThrows(ErrorMessageException.class, () -> locker.store(bag));
-        String errorMsg = exception.getMessage();
-        assertEquals("no space", errorMsg);
+        assertThrows(LockerIsFullException.class, () -> locker.store(bag));
     }
 
     @Test
@@ -31,11 +29,12 @@ public class LockerTest {
         Locker locker = new Locker(2);
         Ticket ticket = locker.store(storedBag);
         Bag fetchedBag = locker.fetch(ticket);
-        assertEquals(System.identityHashCode(storedBag), System.identityHashCode(fetchedBag));
+
+        assertSame(storedBag, fetchedBag);
     }
 
     @Test
-    void should_throw_err_when_fetch_bag_given_ticket_is_invalid() throws ErrorMessageException {
+    void should_throw_err_when_fetch_bag_given_ticket_is_invalid() {
         Locker locker = new Locker(2);
         Ticket ticket = new Ticket();
         Exception exception = assertThrows(ErrorMessageException.class, () -> locker.fetch(ticket));

@@ -13,9 +13,9 @@ public class Locker {
         this.availableCapacity = capacity;
     }
 
-    public Ticket store(Bag bag) throws ErrorMessageException {
+    public Ticket store(Bag bag) {
         if (availableCapacity <= 0) {
-            throw new ErrorMessageException("no space");
+            throw new LockerIsFullException();
         }
         Ticket ticket = new Ticket();
         record.put(System.identityHashCode(ticket), bag);
