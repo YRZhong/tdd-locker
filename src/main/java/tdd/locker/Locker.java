@@ -35,4 +35,8 @@ public class Locker {
     public Boolean hasCapacity() {
         return  availableCapacity > 0;
     }
+
+    public Boolean isContainsGivenBag(Ticket ticket) {
+        return storedBags.containsKey(ticket);
+    }
 }

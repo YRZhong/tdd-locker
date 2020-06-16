@@ -19,4 +19,14 @@ public class Robot {
         }
         throw new LockerIsFullException();
     }
+
+    public Bag fetch(Ticket ticket) {
+        for (int i=0; i < lockers.size(); i++) {
+            if (lockers.get(i).isContainsGivenBag(ticket)) {
+                return lockers.get(i).fetch(ticket);
+            }
+        }
+        return  null;
+    }
+
 }
