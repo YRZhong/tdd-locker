@@ -31,4 +31,8 @@ public class Locker {
         storedBags.remove(ticket);
         return bag;
     }
+
+    public Boolean hasCapacity() {
+        return  availableCapacity > 0;
+    }
 }

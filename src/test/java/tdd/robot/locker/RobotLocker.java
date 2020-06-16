@@ -21,4 +21,16 @@ public class RobotLocker {
         assertNotNull(ticket);
         assertSame(bag, locker1.fetch(ticket));
     }
+
+    @Test
+    void should_return_ticket_and_save_to_2th_locker_when_store_bag_given_second_locker_has_space() {
+        Locker locker1 = new Locker(1);
+        Locker locker2 = new Locker(1);
+        locker1.store(new Bag());
+        Robot robot = new Robot(Arrays.asList(locker1, locker2));
+        Bag bag = new Bag();
+        Ticket ticket = robot.store(bag);
+        assertNotNull(ticket);
+        assertSame(bag, locker2.fetch(ticket));
+    }
 }

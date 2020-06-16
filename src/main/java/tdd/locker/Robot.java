@@ -12,6 +12,11 @@ public class Robot {
     }
 
     public Ticket store(Bag bag) {
-        return lockers.get(0).store(bag);
+        for (int i=0; i<lockers.size(); i++) {
+            if (lockers.get(i).hasCapacity()) {
+                return lockers.get(i).store(bag);
+            }
+        }
+        return null;
     }
 }
