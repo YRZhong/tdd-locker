@@ -1,10 +1,7 @@
 package tdd.robot.locker;
 
 import org.junit.jupiter.api.Test;
-import tdd.locker.Bag;
-import tdd.locker.Locker;
-import tdd.locker.Robot;
-import tdd.locker.Ticket;
+import tdd.locker.*;
 
 import java.util.Arrays;
 
@@ -32,5 +29,16 @@ public class RobotLocker {
         Ticket ticket = robot.store(bag);
         assertNotNull(ticket);
         assertSame(bag, locker2.fetch(ticket));
+    }
+
+    @Test
+    void should_throw_error_when_store_bag_given_first_and_second_locker_is_full() {
+        Locker locker1 = new Locker(1);
+        Locker locker2 = new Locker(1);
+        locker1.store(new Bag());
+        locker2.store(new Bag());
+        Robot robot = new Robot(Arrays.asList(locker1, locker2));
+        Bag bag = new Bag();
+        assertThrows(LockerIsFullException.class, ()->robot.store(bag));
     }
 }
