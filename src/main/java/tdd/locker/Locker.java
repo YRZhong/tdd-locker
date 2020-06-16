@@ -4,19 +4,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Locker {
-    private final int space;
+    private int capacity;
+    private int availableCapacity;
     private Map<Integer, Bag> record = new HashMap<>();
 
-    public Locker(int space) {
-        this.space = space;
+    public Locker(int capacity) {
+        this.capacity = capacity;
+        this.availableCapacity = capacity;
     }
 
     public Ticket store(Bag bag) throws ErrorMessageException {
-        if (space <= 0) {
+        if (availableCapacity <= 0) {
             throw new ErrorMessageException("no space");
         }
         Ticket ticket = new Ticket();
         record.put(System.identityHashCode(ticket), bag);
+        availableCapacity--;
         return ticket;
     }
 

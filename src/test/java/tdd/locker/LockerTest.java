@@ -15,9 +15,11 @@ public class LockerTest {
     }
 
     @Test
-    void should_throw_error_when_store_bag_given_locker_has_no_space() {
+    void should_throw_error_when_store_bag_given_locker_has_no_space() throws ErrorMessageException {
+        Locker locker = new Locker(1);
+        locker.store(new Bag());
+
         Bag bag = new Bag();
-        Locker locker = new Locker(0);
         Exception exception = assertThrows(ErrorMessageException.class, () -> locker.store(bag));
         String errorMsg = exception.getMessage();
         assertEquals("no space", errorMsg);
