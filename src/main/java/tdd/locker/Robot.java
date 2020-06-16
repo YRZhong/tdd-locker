@@ -26,7 +26,7 @@ public class Robot {
                 return lockers.get(i).fetch(ticket);
             }
         }
-        return  null;
+        throw new InvalidTicketException();
     }
 
 }

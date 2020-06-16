@@ -51,4 +51,13 @@ public class RobotLocker {
         Ticket ticket = robot.store(bag);
         assertSame(bag, robot.fetch(ticket));
     }
+
+    @Test
+    void should_throw_error_when_fetch_bag_given_invalid_ticket() {
+        Locker locker1 = new Locker(1);
+        Locker locker2 = new Locker(1);
+        Robot robot = new Robot(Arrays.asList(locker1, locker2));
+        Ticket ticket = new Ticket();
+        assertThrows(InvalidTicketException.class, () -> robot.fetch(ticket));
+    }
 }
