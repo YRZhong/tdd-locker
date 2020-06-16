@@ -26,7 +26,7 @@ public class Locker {
     public Bag fetch(Ticket ticket) throws ErrorMessageException {
         Bag bag = record.get(System.identityHashCode(ticket));
         if (bag == null) {
-            throw new ErrorMessageException("invalid ticket");
+            throw new InvalidTicketException();
         }
         record.remove(System.identityHashCode(ticket));
         return bag;

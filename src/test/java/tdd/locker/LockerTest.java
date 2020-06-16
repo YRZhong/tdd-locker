@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class LockerTest {
 
     @Test
-    void should_return_ticket_when_store_bag_given_locker_has_10_space() throws ErrorMessageException {
+    void should_return_ticket_when_store_bag_given_locker_has_10_space() {
         Bag bag = new Bag();
         Locker locker = new Locker(10);
         Ticket ticket = locker.store(bag);
@@ -15,7 +15,7 @@ public class LockerTest {
     }
 
     @Test
-    void should_throw_error_when_store_bag_given_locker_has_no_space() throws ErrorMessageException {
+    void should_throw_error_when_store_bag_given_locker_has_no_space() {
         Locker locker = new Locker(1);
         locker.store(new Bag());
 
@@ -37,9 +37,7 @@ public class LockerTest {
     void should_throw_err_when_fetch_bag_given_ticket_is_invalid() {
         Locker locker = new Locker(2);
         Ticket ticket = new Ticket();
-        Exception exception = assertThrows(ErrorMessageException.class, () -> locker.fetch(ticket));
-        String errorMsg = exception.getMessage();
-        assertEquals("invalid ticket", errorMsg);
+        assertThrows(InvalidTicketException.class, () -> locker.fetch(ticket));
     }
 
     @Test
@@ -48,8 +46,7 @@ public class LockerTest {
         Locker locker = new Locker(11);
         Ticket ticket = locker.store(bag);
         locker.fetch(ticket);
-        Exception exception = assertThrows(ErrorMessageException.class, () -> locker.fetch(ticket));
-        String errorMsg = exception.getMessage();
-        assertEquals("invalid ticket", errorMsg);
+
+        assertThrows(InvalidTicketException.class, () -> locker.fetch(ticket));
     }
 }
