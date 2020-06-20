@@ -30,4 +30,15 @@ public class SmartLockerRobotTest {
         assertNotNull(ticket);
         assertSame(bag, secondLocker.fetch(ticket));
     }
+
+    @Test
+    public void should_stored_in_first_locker_and_return_ticket_given_first_locker_capacity_equals_second_locker() {
+        Locker firstLocker = new Locker(2);
+        Locker secondLocker = new Locker(2);
+        Bag bag = new Bag();
+        SmartLockerRobot smartLockerRobot = new SmartLockerRobot(Arrays.asList(firstLocker, secondLocker));
+        Ticket ticket = smartLockerRobot.store(bag);
+        assertNotNull(ticket);
+        assertSame(bag, firstLocker.fetch(ticket));
+    }
 }
