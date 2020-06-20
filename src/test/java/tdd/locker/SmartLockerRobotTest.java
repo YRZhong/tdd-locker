@@ -61,4 +61,15 @@ public class SmartLockerRobotTest {
         SmartLockerRobot smartLockerRobot = new SmartLockerRobot(Arrays.asList(firstLocker, secondLocker));
         assertThrows(InvalidTicketException.class, ()-> smartLockerRobot.fetch(new Ticket()));
     }
+
+    @Test
+    public void should_return_bag_when_fetch_bag_by_locker_robot_given_ticket_by_smart_locker_robot() {
+        Locker firstLocker = new Locker(2);
+        Locker secondLocker = new Locker(2);
+        LockerRobot lockerRobot = new LockerRobot(Arrays.asList(firstLocker, secondLocker));
+        SmartLockerRobot smartLockerRobot = new SmartLockerRobot(Arrays.asList(firstLocker, secondLocker));
+        Bag bag = new Bag();
+        Ticket ticket = smartLockerRobot.store(bag);
+        assertSame(bag, lockerRobot.fetch(ticket));
+    }
 }

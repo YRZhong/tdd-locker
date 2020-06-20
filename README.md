@@ -43,8 +43,8 @@ Given  smart-locker-robot管理的两个locker，两个locker已经存满，when
 
 Given  smart-locker-robot管理的两个locker，收到无效ticket，when 取包，then 取包失败,提示ticket无效。
 
-Given  smart-locker-robot和locker-robot同时管理的两个locker，locker有位置，when 通过smart-locker-robot存包返回ticket，locker-robot收到ticket取包，then 取包成功。
+Given  smart-locker-robot和locker-robot同时管理的两个locker，收到smart-locker-robot返回的ticket，when locker-robot取包，then 取包成功。
 
-Given  smart-locker-robot和locker-robot同时管理的两个locker，locker有位置，when 通过locker-robot存包返回ticket，smart-locker-robot收到ticket取包，then 取包成功。
+Given  smart-locker-robot和locker-robot同时管理的两个locker，收到locker-robot返回的ticket，when smart-locker-robot取包，then 取包成功。
 
 
