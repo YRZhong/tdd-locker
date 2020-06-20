@@ -21,4 +21,8 @@ public class SmartLockerRobot {
         }
         return maxCapacityLocker.store(bag);
     }
+
+    public Bag fetch(Ticket ticket) {
+        throw new InvalidTicketException();
+    }
 }

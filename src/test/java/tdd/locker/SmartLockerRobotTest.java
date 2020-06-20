@@ -42,7 +42,7 @@ public class SmartLockerRobotTest {
     }
 
     @Test
-    public void should_throw_error_when_store_bag_given_first_and_second_locker_are_full() {
+    public void should_throw_locker_is_full_exception_when_store_bag_given_first_and_second_locker_are_full() {
         Locker firstLocker = new Locker(1);
         Locker secondLocker = new Locker(1);
         Bag bag1 = new Bag();
@@ -52,5 +52,13 @@ public class SmartLockerRobotTest {
         secondLocker.store(bag2);
         SmartLockerRobot smartLockerRobot = new SmartLockerRobot(Arrays.asList(firstLocker, secondLocker));
         assertThrows(LockerIsFullException.class, ()->smartLockerRobot.store(bag3));
+    }
+
+    @Test
+    public void should_throw_invalid_ticket_exception_when_fetch_bag_given_invalid_ticket() {
+        Locker firstLocker = new Locker(2);
+        Locker secondLocker = new Locker(2);
+        SmartLockerRobot smartLockerRobot = new SmartLockerRobot(Arrays.asList(firstLocker, secondLocker));
+        assertThrows(InvalidTicketException.class, ()-> smartLockerRobot.fetch(new Ticket()));
     }
 }
