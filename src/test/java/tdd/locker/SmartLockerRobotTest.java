@@ -5,12 +5,11 @@ import org.junit.jupiter.api.Test;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SmartLockerRobotTest {
     @Test
-    public void should_stored_in_first_locker_and_return_ticket_given_first_locker_capacity_is_more_than_second_locker() {
+    public void should_stored_in_first_locker_and_return_ticket_when_store_bag_given_first_locker_capacity_is_more_than_second_locker() {
         Locker firstLocker = new Locker(3);
         Locker secondLocker = new Locker(2);
         Bag bag = new Bag();
@@ -21,7 +20,7 @@ public class SmartLockerRobotTest {
     }
 
     @Test
-    public void should_stored_in_second_locker_and_return_ticket_given_first_locker_capacity_is_less_than_second_locker() {
+    public void should_stored_in_second_locker_and_return_ticket_when_store_bag_given_first_locker_capacity_is_less_than_second_locker() {
         Locker firstLocker = new Locker(2);
         Locker secondLocker = new Locker(3);
         Bag bag = new Bag();
@@ -32,7 +31,7 @@ public class SmartLockerRobotTest {
     }
 
     @Test
-    public void should_stored_in_first_locker_and_return_ticket_given_first_locker_capacity_equals_second_locker() {
+    public void should_stored_in_first_locker_and_return_ticket_when_store_bag_given_first_locker_capacity_equals_second_locker() {
         Locker firstLocker = new Locker(2);
         Locker secondLocker = new Locker(2);
         Bag bag = new Bag();
@@ -40,5 +39,18 @@ public class SmartLockerRobotTest {
         Ticket ticket = smartLockerRobot.store(bag);
         assertNotNull(ticket);
         assertSame(bag, firstLocker.fetch(ticket));
+    }
+
+    @Test
+    public void should_throw_error_when_store_bag_given_first_and_second_locker_are_full() {
+        Locker firstLocker = new Locker(1);
+        Locker secondLocker = new Locker(1);
+        Bag bag1 = new Bag();
+        Bag bag2 = new Bag();
+        Bag bag3 = new Bag();
+        firstLocker.store(bag1);
+        secondLocker.store(bag2);
+        SmartLockerRobot smartLockerRobot = new SmartLockerRobot(Arrays.asList(firstLocker, secondLocker));
+        assertThrows(LockerIsFullException.class, ()->smartLockerRobot.store(bag3));
     }
 }
