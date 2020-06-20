@@ -2,7 +2,6 @@ package tdd.locker;
 
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -71,5 +70,16 @@ public class SmartLockerRobotTest {
         Bag bag = new Bag();
         Ticket ticket = smartLockerRobot.store(bag);
         assertSame(bag, lockerRobot.fetch(ticket));
+    }
+
+    @Test
+    public void should_return_bag_when_fetch_bag_by_smart_locker_robot_given_ticket_by_locker_robot() {
+        Locker firstLocker = new Locker(2);
+        Locker secondLocker = new Locker(2);
+        LockerRobot lockerRobot = new LockerRobot(Arrays.asList(firstLocker, secondLocker));
+        SmartLockerRobot smartLockerRobot = new SmartLockerRobot(Arrays.asList(firstLocker, secondLocker));
+        Bag bag = new Bag();
+        Ticket ticket = lockerRobot.store(bag);
+        assertSame(bag, smartLockerRobot.fetch(ticket));
     }
 }
