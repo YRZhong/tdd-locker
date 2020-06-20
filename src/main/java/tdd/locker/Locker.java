@@ -4,12 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Locker implements ILocker {
-    private int capacity;
     private int availableCapacity;
     private Map<Ticket, Bag> storedBags = new HashMap<>();
 
     public Locker(int capacity) {
-        this.capacity = capacity;
         this.availableCapacity = capacity;
     }
 
