@@ -21,7 +21,7 @@ given：使用使用过的ticket
 when：取物品  
 then：提示无效ticket  
 
-## robot-locker
+## lockerRobot-locker
 given robot管理2个Locker，储物柜有空柜 1号Locker未满, when 存包, then 存入1号Locker并返回ticket
 
 given robot管理2个Locker，1号Locker 已满 2号Locker未满, when 存包,then 存入2号Locker并返回ticket
@@ -32,7 +32,7 @@ given robot管理2个Locker，收到有效的ticket，when 取包，then 成功�
 
 given robot管理2个Locker，收到无效的ticket，when 取包，then 提示ticket无效
 
-## smart-locker-robot
+## smart-locker-lockerRobot
 Given  smart-locker-robot管理的两个locker，一号locker空余数量大于二号locker，when 存包，then 成功存入一号locker，返回ticket。
 
 Given  smart-locker-robot管理的两个locker，一号locker空余数量小于二号locker，when 存包，then 成功存入二号locker，得到ticket。
