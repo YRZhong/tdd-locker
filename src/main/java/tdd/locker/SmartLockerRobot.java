@@ -4,10 +4,8 @@ import java.util.List;
 
 public class SmartLockerRobot extends AbsLockerRobot {
 
-    private List<Locker> lockers;
-
     public SmartLockerRobot(List<Locker> lockers) {
-        this.lockers = lockers;
+        super(lockers);
     }
 
     @Override
