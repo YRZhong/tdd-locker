@@ -3,7 +3,7 @@ package tdd.locker;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Locker {
+public class Locker implements ILocker {
     private int capacity;
     private int availableCapacity;
     private Map<Ticket, Bag> storedBags = new HashMap<>();
@@ -13,6 +13,7 @@ public class Locker {
         this.availableCapacity = capacity;
     }
 
+    @Override
     public Ticket store(Bag bag) {
         if (availableCapacity <= 0) {
             throw new LockerIsFullException();
@@ -23,6 +24,7 @@ public class Locker {
         return ticket;
     }
 
+    @Override
     public Bag fetch(Ticket ticket) {
         Bag bag = storedBags.get(ticket);
         if (bag == null) {
@@ -33,7 +35,7 @@ public class Locker {
     }
 
     public Boolean hasCapacity() {
-        return  availableCapacity > 0;
+        return availableCapacity > 0;
     }
 
     public Boolean isContainsGivenBag(Ticket ticket) {
