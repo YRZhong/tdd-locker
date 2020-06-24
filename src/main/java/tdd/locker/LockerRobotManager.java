@@ -30,6 +30,6 @@ public class LockerRobotManager extends AbsLockerRobot {
                 return locker.store(bag);
             }
         }
-        return lockers.get(0).store(bag);
+        throw new LockerIsFullException();
     }
 }

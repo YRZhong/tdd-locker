@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class LockerRobotManagerTest {
 
@@ -57,7 +58,7 @@ public class LockerRobotManagerTest {
         AbsLockerRobot absLockerRobot1 = new PrimaryLockerRobot(Arrays.asList(robotLocker1));
         AbsLockerRobot absLockerRobot2 = new SmartLockerRobot(Arrays.asList(robotLocker2));
         LockerRobotManager lockerRobotManager = new LockerRobotManager(Arrays.asList(firstLocker, secondLocker),
-                Arrays.asList(absLockerRobot1,absLockerRobot2));
+                Arrays.asList(absLockerRobot1, absLockerRobot2));
         Bag bag = new Bag();
 
         Ticket ticket = lockerRobotManager.store(bag);
@@ -79,7 +80,7 @@ public class LockerRobotManagerTest {
         AbsLockerRobot absLockerRobot1 = new PrimaryLockerRobot(Arrays.asList(robotLocker1));
         AbsLockerRobot absLockerRobot2 = new SmartLockerRobot(Arrays.asList(robotLocker2));
         LockerRobotManager lockerRobotManager = new LockerRobotManager(Arrays.asList(firstLocker, secondLocker),
-                Arrays.asList(absLockerRobot1,absLockerRobot2));
+                Arrays.asList(absLockerRobot1, absLockerRobot2));
         Bag bag = new Bag();
 
         lockerRobotManager.store(new Bag());
@@ -89,4 +90,27 @@ public class LockerRobotManagerTest {
         assertSame(bag, robotLocker2.fetch(ticket));
     }
 
+    /**
+     * given LockerRobotManager 和 管理的的 robot 的 locker 都没有位置，包，
+     * when 存包，then 存包失败，提示柜子已经满了。
+     */
+    @Test
+    public void should_throw_locker_is_full_exception_when_store_bag_give_lockers_and_robots_have_full() {
+        Locker firstLocker = new Locker(1);
+        Locker secondLocker = new Locker(1);
+        Locker robotLocker1 = new Locker(1);
+        Locker robotLocker2 = new Locker(1);
+        AbsLockerRobot absLockerRobot1 = new PrimaryLockerRobot(Arrays.asList(robotLocker1));
+        AbsLockerRobot absLockerRobot2 = new SmartLockerRobot(Arrays.asList(robotLocker2));
+        LockerRobotManager lockerRobotManager = new LockerRobotManager(Arrays.asList(firstLocker, secondLocker),
+                Arrays.asList(absLockerRobot1, absLockerRobot2));
+        Bag bag = new Bag();
+
+        lockerRobotManager.store(new Bag());
+        lockerRobotManager.store(new Bag());
+        lockerRobotManager.store(new Bag());
+        lockerRobotManager.store(new Bag());
+
+        assertThrows(LockerIsFullException.class, () -> lockerRobotManager.store(bag));
+    }
 }
