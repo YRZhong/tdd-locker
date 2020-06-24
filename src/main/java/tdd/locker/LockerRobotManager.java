@@ -16,12 +16,13 @@ public class LockerRobotManager extends AbsLockerRobot {
     }
 
     public Ticket store(Bag bag) {
+        if (!this.ableToStore()) {
+            throw new LockerIsFullException();
+        }
         if (lockerRobots != null) {
             for (AbsLockerRobot absLockerRobot : lockerRobots) {
-                try {
-                    Ticket ticket = absLockerRobot.store(bag);
-                    return ticket;
-                } catch (LockerIsFullException e) {
+                if (absLockerRobot.ableToStore()) {
+                    return absLockerRobot.store(bag);
                 }
             }
         }
@@ -30,7 +31,7 @@ public class LockerRobotManager extends AbsLockerRobot {
                 return locker.store(bag);
             }
         }
-        throw new LockerIsFullException();
+       return null;
     }
 
     @Override
@@ -44,5 +45,15 @@ public class LockerRobotManager extends AbsLockerRobot {
             }
         }
         return super.fetch(ticket);
+    }
+
+    @Override
+    public boolean ableToStore() {
+        boolean lockerIsFull = super.ableToStore();
+        boolean robotAbleToStore = false;
+        if (lockerRobots != null) {
+            robotAbleToStore = lockerRobots.stream().anyMatch(robot -> robot.ableToStore());
+        }
+        return lockerIsFull || robotAbleToStore;
     }
 }
