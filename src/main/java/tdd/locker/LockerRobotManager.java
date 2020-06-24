@@ -32,4 +32,17 @@ public class LockerRobotManager extends AbsLockerRobot {
         }
         throw new LockerIsFullException();
     }
+
+    @Override
+    public Bag fetch(Ticket ticket) {
+        if (lockerRobots != null) {
+            for (AbsLockerRobot absLockerRobot : lockerRobots) {
+                try {
+                    return absLockerRobot.fetch(ticket);
+                } catch (InvalidTicketException e) {
+                }
+            }
+        }
+        return super.fetch(ticket);
+    }
 }
