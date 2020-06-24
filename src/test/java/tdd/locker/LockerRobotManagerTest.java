@@ -118,7 +118,7 @@ public class LockerRobotManagerTest {
      * given LockerRobotManager ，有效的 ticket ， when 取包，then 取包成功。
      */
     @Test
-    public void should_get_bag_when_fetch_bag_given_locker_robot_manager_and_ticket_is_valid(){
+    public void should_get_bag_when_fetch_bag_given_locker_robot_manager_and_ticket_is_valid() {
         Locker firstLocker = new Locker(5);
         Locker secondLocker = new Locker(5);
         LockerRobotManager lockerRobotManager = new LockerRobotManager(Arrays.asList(firstLocker, secondLocker));
@@ -127,6 +127,21 @@ public class LockerRobotManagerTest {
         Ticket ticket = lockerRobotManager.store(bag);
 
         assertNotNull(ticket);
-        assertSame(bag,lockerRobotManager.fetch(ticket));
+        assertSame(bag, lockerRobotManager.fetch(ticket));
+    }
+
+    /**
+     * given LockerRobotManager ，无效的 ticket ， when 取包，then 取包失败，提示票据无效。
+     */
+    @Test
+    public void should_get_bag_when_fetch_bag_given_locker_robot_manager_and_ticket_is_invalid() {
+        Locker firstLocker = new Locker(5);
+        Locker secondLocker = new Locker(5);
+        LockerRobotManager lockerRobotManager = new LockerRobotManager(Arrays.asList(firstLocker, secondLocker));
+        Bag bag = new Bag();
+
+        lockerRobotManager.store(bag);
+
+        assertThrows(InvalidTicketException.class, () -> lockerRobotManager.fetch(new Ticket()));
     }
 }
