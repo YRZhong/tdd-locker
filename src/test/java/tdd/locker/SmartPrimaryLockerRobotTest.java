@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class SmartLockerRobotTest {
+public class SmartPrimaryLockerRobotTest {
     @Test
     public void should_stored_in_first_locker_and_return_ticket_when_store_bag_given_first_locker_capacity_is_more_than_second_locker() {
         Locker firstLocker = new Locker(3);
@@ -65,21 +65,21 @@ public class SmartLockerRobotTest {
     public void should_return_bag_when_fetch_bag_by_locker_robot_given_ticket_by_smart_locker_robot() {
         Locker firstLocker = new Locker(2);
         Locker secondLocker = new Locker(2);
-        LockerRobot lockerRobot = new LockerRobot(Arrays.asList(firstLocker, secondLocker));
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(firstLocker, secondLocker));
         SmartLockerRobot smartLockerRobot = new SmartLockerRobot(Arrays.asList(firstLocker, secondLocker));
         Bag bag = new Bag();
         Ticket ticket = smartLockerRobot.store(bag);
-        assertSame(bag, lockerRobot.fetch(ticket));
+        assertSame(bag, primaryLockerRobot.fetch(ticket));
     }
 
     @Test
     public void should_return_bag_when_fetch_bag_by_smart_locker_robot_given_ticket_by_locker_robot() {
         Locker firstLocker = new Locker(2);
         Locker secondLocker = new Locker(2);
-        LockerRobot lockerRobot = new LockerRobot(Arrays.asList(firstLocker, secondLocker));
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(firstLocker, secondLocker));
         SmartLockerRobot smartLockerRobot = new SmartLockerRobot(Arrays.asList(firstLocker, secondLocker));
         Bag bag = new Bag();
-        Ticket ticket = lockerRobot.store(bag);
+        Ticket ticket = primaryLockerRobot.store(bag);
         assertSame(bag, smartLockerRobot.fetch(ticket));
     }
 }

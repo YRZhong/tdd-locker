@@ -6,14 +6,14 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class LockerRobotTest {
+public class PrimaryLockerRobotTest {
     @Test
     void should_return_ticket_when_store_bag_given_first_locker_has_space() {
         Locker locker1 = new Locker(10);
         Locker locker2 = new Locker(10);
-        LockerRobot lockerRobot = new LockerRobot(Arrays.asList(locker1, locker2));
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(locker1, locker2));
         Bag bag = new Bag();
-        Ticket ticket = lockerRobot.store(bag);
+        Ticket ticket = primaryLockerRobot.store(bag);
         assertNotNull(ticket);
         assertSame(bag, locker1.fetch(ticket));
     }
@@ -23,9 +23,9 @@ public class LockerRobotTest {
         Locker locker1 = new Locker(1);
         Locker locker2 = new Locker(1);
         locker1.store(new Bag());
-        LockerRobot lockerRobot = new LockerRobot(Arrays.asList(locker1, locker2));
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(locker1, locker2));
         Bag bag = new Bag();
-        Ticket ticket = lockerRobot.store(bag);
+        Ticket ticket = primaryLockerRobot.store(bag);
         assertNotNull(ticket);
         assertSame(bag, locker2.fetch(ticket));
     }
@@ -36,27 +36,27 @@ public class LockerRobotTest {
         Locker locker2 = new Locker(1);
         locker1.store(new Bag());
         locker2.store(new Bag());
-        LockerRobot lockerRobot = new LockerRobot(Arrays.asList(locker1, locker2));
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(locker1, locker2));
         Bag bag = new Bag();
-        assertThrows(LockerIsFullException.class, ()-> lockerRobot.store(bag));
+        assertThrows(LockerIsFullException.class, ()-> primaryLockerRobot.store(bag));
     }
 
     @Test
     void should_get_bag_when_fetch_bag_given_valid_ticket() {
         Locker locker1 = new Locker(1);
         Locker locker2 = new Locker(1);
-        LockerRobot lockerRobot = new LockerRobot(Arrays.asList(locker1, locker2));
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(locker1, locker2));
         Bag bag = new Bag();
-        Ticket ticket = lockerRobot.store(bag);
-        assertSame(bag, lockerRobot.fetch(ticket));
+        Ticket ticket = primaryLockerRobot.store(bag);
+        assertSame(bag, primaryLockerRobot.fetch(ticket));
     }
 
     @Test
     void should_throw_error_when_fetch_bag_given_invalid_ticket() {
         Locker locker1 = new Locker(1);
         Locker locker2 = new Locker(1);
-        LockerRobot lockerRobot = new LockerRobot(Arrays.asList(locker1, locker2));
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(locker1, locker2));
         Ticket ticket = new Ticket();
-        assertThrows(InvalidTicketException.class, () -> lockerRobot.fetch(ticket));
+        assertThrows(InvalidTicketException.class, () -> primaryLockerRobot.fetch(ticket));
     }
 }
