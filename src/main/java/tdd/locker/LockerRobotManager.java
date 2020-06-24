@@ -1,5 +1,6 @@
 package tdd.locker;
 
+import java.util.Collections;
 import java.util.List;
 
 public class LockerRobotManager extends AbsLockerRobot {
@@ -8,6 +9,7 @@ public class LockerRobotManager extends AbsLockerRobot {
 
     public LockerRobotManager(List<Locker> lockers) {
         super(lockers);
+        lockerRobots = Collections.emptyList();
     }
 
     public LockerRobotManager(List<Locker> lockers, List<AbsLockerRobot> lockerRobots) {
@@ -19,11 +21,9 @@ public class LockerRobotManager extends AbsLockerRobot {
         if (!this.ableToStore()) {
             throw new LockerIsFullException();
         }
-        if (lockerRobots != null) {
-            for (AbsLockerRobot absLockerRobot : lockerRobots) {
-                if (absLockerRobot.ableToStore()) {
-                    return absLockerRobot.store(bag);
-                }
+        for (AbsLockerRobot absLockerRobot : lockerRobots) {
+            if (absLockerRobot.ableToStore()) {
+                return absLockerRobot.store(bag);
             }
         }
         for (Locker locker : lockers) {
@@ -39,10 +39,8 @@ public class LockerRobotManager extends AbsLockerRobot {
         if (!this.hasValidTicket(ticket)) {
             throw new InvalidTicketException();
         }
-        if (lockerRobots != null) {
-            for (AbsLockerRobot absLockerRobot : lockerRobots) {
-                return absLockerRobot.fetch(ticket);
-            }
+        for (AbsLockerRobot absLockerRobot : lockerRobots) {
+            return absLockerRobot.fetch(ticket);
         }
         return super.fetch(ticket);
     }
@@ -50,20 +48,16 @@ public class LockerRobotManager extends AbsLockerRobot {
     @Override
     public boolean ableToStore() {
         boolean lockerIsFull = super.ableToStore();
-        boolean robotAbleToStore = false;
-        if (lockerRobots != null) {
-            robotAbleToStore = lockerRobots.stream().anyMatch(robot -> robot.ableToStore());
-        }
+        boolean robotAbleToStore = lockerRobots.stream().anyMatch(robot -> robot.ableToStore());
         return lockerIsFull || robotAbleToStore;
     }
 
     @Override
     public boolean hasValidTicket(Ticket ticket) {
         boolean lockerHasValidTicket = super.hasValidTicket(ticket);
-        boolean robotHasValidTicket = false;
-        if (lockerRobots != null) {
-            robotHasValidTicket = lockerRobots.stream().allMatch(robot -> robot.hasValidTicket(ticket));
-        }
+        boolean robotHasValidTicket = lockerRobots
+                                              .stream()
+                                              .anyMatch(robot -> robot.hasValidTicket(ticket));
         return lockerHasValidTicket || robotHasValidTicket;
     }
 }
