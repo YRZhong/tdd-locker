@@ -19,4 +19,8 @@ public abstract class AbsLockerRobot {
         }
         throw new InvalidTicketException();
     }
+
+    public boolean ableToStore() {
+        return lockers.stream().anyMatch(locker -> locker.hasCapacity());
+    }
 }

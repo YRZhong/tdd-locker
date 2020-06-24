@@ -10,6 +10,9 @@ public class SmartLockerRobot extends AbsLockerRobot {
 
     @Override
     public Ticket store(Bag bag) {
+        if (!ableToStore()) {
+            throw new LockerIsFullException();
+        }
         int maxCapacity = -1;
         Locker maxCapacityLocker = null;
         for (Locker locker : lockers) {
