@@ -29,6 +29,7 @@ public class Locker implements ILocker {
             throw new InvalidTicketException();
         }
         storedBags.remove(ticket);
+        availableCapacity++;
         return bag;
     }
 
