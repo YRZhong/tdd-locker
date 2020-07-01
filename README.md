@@ -74,7 +74,7 @@ M 7 9
  
 Given locker-robot-director管理1个robot-manager，robot-manger管理2个robot，每个robot管理一个locker，第一个robot管理的locker的可用容量和总容量分别为3,5，
 第二个robot管理的locker的可用容量和总容量分别为6,7，when locker-robot-director统计报表，then 打印
-M 9 11
+M 9 12
  R 3 5
   L 3 5
  R 6 7

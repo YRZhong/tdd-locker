@@ -2,7 +2,9 @@ package tdd.locker;
 
 import org.junit.jupiter.api.Test;
 
+import java.awt.*;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -155,8 +157,33 @@ public class LockerRobotManagerTest {
         firstLocker.store(new Bag());
         secondLocker.store(new Bag());
         LockerRobotManager lockerRobotManager = new LockerRobotManager(Arrays.asList(firstLocker, secondLocker));
+
         Map<String, Integer> statistics = lockerRobotManager.getStatistics();
+
         assertEquals(7, statistics.get("availableCapacity"));
         assertEquals(9, statistics.get("totalCapacity"));
     }
+
+    /**
+     * robot-manger管理2个robot，第一个robot管理的locker的可用容量和总容量分别为3,5，
+     * 第二个robot管理的locker的可用容量和总容量分别为6,7，when 统计数量，then 得到可用容量和总容量分别为 9 12
+     */
+    @Test
+    public void should_get_total_available_9_and_total_capacity_11_given_robot1_manage_locker1_available_3_capacity_5_and_robot2_manage_locker2_available_6_capacity_7() {
+        Locker firstLocker = new Locker(5);
+        Locker secondLocker = new Locker(7);
+        firstLocker.store(new Bag());
+        firstLocker.store(new Bag());
+        secondLocker.store(new Bag());
+        PrimaryLockerRobot firstRobot = new PrimaryLockerRobot(Arrays.asList(firstLocker));
+        PrimaryLockerRobot secondRobot = new PrimaryLockerRobot(Arrays.asList(secondLocker));
+        LockerRobotManager lockerRobotManager = new LockerRobotManager(Collections.emptyList(), Arrays.asList(firstRobot, secondRobot));
+
+        Map<String, Integer> statistics = lockerRobotManager.getStatistics();
+
+        assertEquals(9, statistics.get("availableCapacity"));
+        assertEquals(12, statistics.get("totalCapacity"));
+    }
+
+
 }

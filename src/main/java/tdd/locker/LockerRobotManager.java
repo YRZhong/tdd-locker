@@ -10,6 +10,7 @@ public class LockerRobotManager extends AbsLockerRobot {
 
     private List<AbsLockerRobot> lockerRobots;
 
+
     public LockerRobotManager(List<Locker> lockers) {
         super(lockers);
         lockerRobots = Collections.emptyList();
@@ -59,14 +60,16 @@ public class LockerRobotManager extends AbsLockerRobot {
     public boolean hasValidTicket(Ticket ticket) {
         boolean lockerHasValidTicket = super.hasValidTicket(ticket);
         boolean robotHasValidTicket = lockerRobots
-                                              .stream()
-                                              .anyMatch(robot -> robot.hasValidTicket(ticket));
+                .stream()
+                .anyMatch(robot -> robot.hasValidTicket(ticket));
         return lockerHasValidTicket || robotHasValidTicket;
     }
 
     public Map<String, Integer> getStatistics() {
-        int availableCapacity = lockers.stream().mapToInt(item -> item.getAvailableCapacity()).sum();
-        int totalCapacity = lockers.stream().mapToInt(item -> item.getCapacity()).sum();
+        int availableCapacity = lockers.stream().mapToInt(item -> item.getAvailableCapacity()).sum()
+                + lockerRobots.stream().mapToInt(item -> item.getStatistics().get("availableCapacity")).sum();
+        int totalCapacity = lockers.stream().mapToInt(item -> item.getCapacity()).sum()
+                + lockerRobots.stream().mapToInt(item -> item.getStatistics().get("totalCapacity")).sum();
         return ImmutableMap.of("availableCapacity", availableCapacity, "totalCapacity", totalCapacity);
     }
 }
