@@ -185,5 +185,22 @@ public class LockerRobotManagerTest {
         assertEquals(12, statistics.get("totalCapacity"));
     }
 
+    /**
+     * robot-manger管理1个robot，和1个locker，robot管理的locker的可用容量和总容量分别为7,8，
+     * robot-manger管理的locker的可用容量和总容量分别为9,10，when 统计数量，then 得到可用容量和总容量分别为 16 18
+     */
+    @Test
+    public void should_get_total_available_16_and_total_capacity_18_given_robot_locker_7_8_robot_manager_locker_9_10() {
+        Locker firstLocker = new Locker(8);
+        Locker secondLocker = new Locker(10);
+        firstLocker.store(new Bag());
+        firstLocker.store(new Bag());
+        PrimaryLockerRobot robot = new PrimaryLockerRobot(Arrays.asList(firstLocker));
+        LockerRobotManager lockerRobotManager = new LockerRobotManager(Arrays.asList(secondLocker), Arrays.asList(robot));
 
+        Map<String, Integer> statistics = lockerRobotManager.getStatistics();
+
+        assertEquals(16, statistics.get("availableCapacity"));
+        assertEquals(18, statistics.get("totalCapacity"));
+    }
 }
