@@ -1,7 +1,10 @@
 package tdd.locker;
 
+import com.google.common.collect.ImmutableMap;
+
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class LockerRobotManager extends AbsLockerRobot {
 
@@ -59,5 +62,11 @@ public class LockerRobotManager extends AbsLockerRobot {
                                               .stream()
                                               .anyMatch(robot -> robot.hasValidTicket(ticket));
         return lockerHasValidTicket || robotHasValidTicket;
+    }
+
+    public Map<String, Integer> getStatistics() {
+        int availableCapacity = lockers.stream().mapToInt(item -> item.getAvailableCapacity()).sum();
+        int totalCapacity = lockers.stream().mapToInt(item -> item.getCapacity()).sum();
+        return ImmutableMap.of("availableCapacity", availableCapacity, "totalCapacity", totalCapacity);
     }
 }

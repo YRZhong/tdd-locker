@@ -3,10 +3,9 @@ package tdd.locker;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class LockerRobotManagerTest {
 
@@ -143,5 +142,21 @@ public class LockerRobotManagerTest {
         lockerRobotManager.store(bag);
 
         assertThrows(InvalidTicketException.class, () -> lockerRobotManager.fetch(new Ticket()));
+    }
+
+    /**
+     * robot-manger管理2个locker，第一个locker的可用容量和总容量分别为4,5，
+     * 第二个locker的可用容量和总容量分别为3,4，when 统计数量，then 得到可用容量和总容量分别为 7 9
+     */
+    @Test
+    public void should_get_total_available_7_and_total_capacity_9_given_locker1_available_4_capacity_5_and_locker2_available_3_capacity_4() {
+        Locker firstLocker = new Locker(5);
+        Locker secondLocker = new Locker(4);
+        firstLocker.store(new Bag());
+        secondLocker.store(new Bag());
+        LockerRobotManager lockerRobotManager = new LockerRobotManager(Arrays.asList(firstLocker, secondLocker));
+        Map<String, Integer> statistics = lockerRobotManager.getStatistics();
+        assertEquals(7, statistics.get("availableCapacity"));
+        assertEquals(9, statistics.get("totalCapacity"));
     }
 }

@@ -5,10 +5,12 @@ import java.util.Map;
 
 public class Locker {
     private int availableCapacity;
+    private int capacity;
     private Map<Ticket, Bag> storedBags = new HashMap<>();
 
     public Locker(int capacity) {
         this.availableCapacity = capacity;
+        this.capacity = capacity;
     }
 
     public Ticket store(Bag bag) {
@@ -41,5 +43,9 @@ public class Locker {
 
     public int getAvailableCapacity() {
         return availableCapacity;
+    }
+
+    public int getCapacity() {
+        return capacity;
     }
 }
