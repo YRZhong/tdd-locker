@@ -65,3 +65,33 @@ given LockerRobotManager ，无效的 ticket ， when 取包，then 取包失败
 
 
 
+## Locker-robot-director
+Given locker-robot-director管理1个robot-manager，robot-manger管理2个locker，第一个locker的可用容量和总容量分别为4,5，
+第二个locker的可用容量和总容量分别为3,4，when locker-robot-director统计报表，then 打印
+M 7 9
+ L 4 5
+ L 3 4
+ 
+Given locker-robot-director管理1个robot-manager，robot-manger管理2个robot，每个robot管理一个locker，第一个robot管理的locker的可用容量和总容量分别为3,5，
+第二个robot管理的locker的可用容量和总容量分别为6,7，when locker-robot-director统计报表，then 打印
+M 9 11
+ R 3 5
+  L 3 5
+ R 6 7
+  L 6 7
+  
+Given locker-robot-director管理1个robot-manager，robot-manger管理1个locker和1个robot，robot-manger管理的locker的可用容量和总容量分别为9,10，
+robot管理的locker的可用容量和总容量分别为7,8，when locker-robot-director统计报表，then 打印
+M 16 18
+ L 9 10
+ R 7 8
+  L 7 8
+  
+Given locker-robot-director管理2个robot-manager，第一个manager管理1个locker，可用容量和总容量分别为0,1，
+第二个manager管理1个locker，可用容量和总容量分别为3,4，when locker-robot-director统计报表，then 打印
+M 0 1
+ L 0 1
+M 3 4
+ L 3 4
+
+
