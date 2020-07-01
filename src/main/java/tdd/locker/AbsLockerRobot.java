@@ -40,4 +40,13 @@ public abstract class AbsLockerRobot {
         return ImmutableMap.of("availableCapacity", availableCapacity, "totalCapacity", totalCapacity);
     }
 
+    public void printStatistics() {
+        int availableCapacity = getStatistics().get("availableCapacity");
+        int totalCapacity = getStatistics().get("totalCapacity");
+        System.out.println(" R " + availableCapacity + " " + totalCapacity);
+        lockers.forEach(item -> {
+            item.printStatistics("  ");
+        });
+    }
+
 }

@@ -72,4 +72,16 @@ public class LockerRobotManager extends AbsLockerRobot {
                 + lockerRobots.stream().mapToInt(item -> item.getStatistics().get("totalCapacity")).sum();
         return ImmutableMap.of("availableCapacity", availableCapacity, "totalCapacity", totalCapacity);
     }
+
+    public void printStatistics() {
+        int availableCapacity = getStatistics().get("availableCapacity");
+        int totalCapacity = getStatistics().get("totalCapacity");
+        System.out.println("M " + availableCapacity + " " + totalCapacity);
+        lockers.forEach(item -> {
+            item.printStatistics(" ");
+        });
+        lockerRobots.forEach(item -> {
+            item.printStatistics();
+        });
+    }
 }

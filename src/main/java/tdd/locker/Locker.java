@@ -48,4 +48,8 @@ public class Locker {
     public int getCapacity() {
         return capacity;
     }
+
+    public void printStatistics(String tighten) {
+        System.out.println(tighten + "L " + this.availableCapacity + " " + this.capacity);
+    }
 }
